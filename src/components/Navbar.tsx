@@ -32,7 +32,7 @@ const Navbar = () => {
       >
         <div className="section-padding flex items-center justify-between h-20">
           <a href="#" className="flex items-center gap-3">
-            <img src={logo} alt="Chicago AMP" className="h-10 w-auto" />
+            <img src={logo} alt="Chicago AMP" className="h-14 w-auto" />
           </a>
 
           {/* Desktop Nav */}

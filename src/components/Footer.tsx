@@ -4,7 +4,7 @@ const Footer = () => (
   <footer className="py-16 section-padding border-t border-border">
     <div className="flex flex-col md:flex-row items-center justify-between gap-8">
       <div className="flex items-center gap-3">
-        <img src={logo} alt="Chicago AMP" className="h-8 w-auto" />
+        <img src={logo} alt="Chicago AMP" className="h-12 w-auto" />
       </div>
       <div className="flex items-center gap-8">
         {["Work", "Services", "About", "Contact"].map((item) => (
