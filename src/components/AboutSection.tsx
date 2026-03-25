@@ -1,51 +1,73 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+
+import { presencePillars } from "@/content/siteContent";
+import { triggerPrompt } from "@/lib/promptBridge";
 
 const AboutSection = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="about" className="py-24 md:py-32 section-padding">
-      <div className="max-w-4xl mx-auto">
+    <section id="about" className="section-padding py-24 md:py-32">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-10">
         <motion.div
-          ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
-          className="text-center"
+          className="surface-panel p-8 md:p-10"
         >
-          <p className="text-primary text-sm tracking-[0.3em] uppercase font-medium mb-6">
-            About Us
+          <p className="eyebrow mb-5">Approach</p>
+          <h2 className="heading-section max-w-xl text-foreground">
+            Andrew shoots for the feeling in the room, then carries that energy into
+            every edit that follows.
+          </h2>
+          <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground">
+            Chicago AMP exists for work that needs more than a tidy portfolio grid.
+            It needs motion, atmosphere, and just enough texture to suggest what it
+            feels like to be there, whether the story lives in a Chicago venue, a
+            Cairo campus, or a campaign launch that spans both stage and screen.
           </p>
-          <blockquote className="heading-section text-foreground leading-tight mb-8">
-            "We're not just event professionals; we're{" "}
-            <span className="gold-gradient">architects of enchantment.</span>"
+          <blockquote className="mt-8 border-l border-primary/40 pl-5 font-display text-2xl leading-tight text-foreground md:text-3xl">
+            &ldquo;We&apos;re not documenting attendance. We&apos;re building the memory
+            people carry out with them.&rdquo;
           </blockquote>
-          <p className="text-body max-w-2xl mx-auto mb-8">
-            Chicago AMP is an audiovisual production company building realms for
-            the stories we tell. We combine cutting-edge technology with
-            artistic vision to create experiences that resonate long after the
-            lights go down.
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
-            {[
-              { value: "150+", label: "Projects" },
-              { value: "12", label: "Years" },
-              { value: "50+", label: "Clients" },
-              { value: "∞", label: "Possibilities" },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl md:text-4xl font-black text-primary">
-                  {stat.value}
-                </div>
-                <div className="text-muted-foreground text-sm tracking-wider uppercase mt-1">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
+          <button
+            type="button"
+            onClick={() =>
+              triggerPrompt({
+                prompt:
+                  "Ask Andrew how he plans productions so the live room, the footage, and the final edit all feel like the same experience.",
+                services: ["Live Event Direction", "Editorial Cutdowns"],
+              })
+            }
+            className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-xs font-semibold uppercase tracking-[0.26em] text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+          >
+            Ask About the Process
+            <ArrowUpRight size={16} />
+          </button>
         </motion.div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {presencePillars.map((pillar, index) => (
+            <motion.article
+              key={pillar.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.55, delay: index * 0.06 }}
+              className="surface-panel p-6 md:p-7"
+            >
+              <p className="text-[11px] uppercase tracking-[0.32em] text-primary">
+                {pillar.label}
+              </p>
+              <h3 className="mt-4 font-display text-2xl text-foreground">
+                {pillar.title}
+              </h3>
+              <p className="mt-4 text-base leading-8 text-muted-foreground">
+                {pillar.description}
+              </p>
+            </motion.article>
+          ))}
+        </div>
       </div>
     </section>
   );

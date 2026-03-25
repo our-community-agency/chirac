@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,44 +6,47 @@
 
 @layer base {
   :root {
-    --background: 0 0% 5%;
-    --foreground: 0 0% 98%;
+    --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+    --font-display: "Space Grotesk", system-ui, sans-serif;
 
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 98%;
+    --background: 222 30% 7%;
+    --foreground: 36 30% 96%;
 
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 98%;
+    --card: 222 26% 10%;
+    --card-foreground: 36 30% 96%;
 
-    --primary: 44 88% 57%;
-    --primary-foreground: 0 0% 5%;
+    --popover: 222 26% 10%;
+    --popover-foreground: 36 30% 96%;
 
-    --secondary: 0 0% 12%;
-    --secondary-foreground: 0 0% 98%;
+    --primary: 28 96% 62%;
+    --primary-foreground: 222 35% 8%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 55%;
+    --secondary: 222 19% 14%;
+    --secondary-foreground: 36 30% 96%;
 
-    --accent: 0 62% 46%;
-    --accent-foreground: 0 0% 98%;
+    --muted: 221 18% 16%;
+    --muted-foreground: 218 18% 71%;
+
+    --accent: 194 78% 62%;
+    --accent-foreground: 222 35% 8%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 18%;
-    --input: 0 0% 18%;
-    --ring: 44 88% 57%;
+    --border: 220 16% 20%;
+    --input: 220 16% 20%;
+    --ring: 28 96% 62%;
 
-    --radius: 0.25rem;
+    --radius: 1.25rem;
 
-    --sidebar-background: 0 0% 5%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 44 88% 57%;
-    --sidebar-primary-foreground: 0 0% 5%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 18%;
-    --sidebar-ring: 44 88% 57%;
+    --sidebar-background: 222 30% 7%;
+    --sidebar-foreground: 36 30% 96%;
+    --sidebar-primary: 28 96% 62%;
+    --sidebar-primary-foreground: 222 35% 8%;
+    --sidebar-accent: 222 19% 14%;
+    --sidebar-accent-foreground: 36 30% 96%;
+    --sidebar-border: 220 16% 20%;
+    --sidebar-ring: 28 96% 62%;
   }
 }
 
@@ -53,46 +56,115 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply font-sans text-foreground antialiased;
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top right, hsl(var(--primary) / 0.14), transparent 24%),
+      radial-gradient(circle at 10% 20%, hsl(var(--accent) / 0.11), transparent 18%),
+      linear-gradient(180deg, hsl(223 31% 9%) 0%, hsl(var(--background)) 46%, hsl(225 32% 6%) 100%);
   }
 
   html {
     scroll-behavior: smooth;
+    background: hsl(var(--background));
   }
 
   ::selection {
-    background: hsl(44 88% 57% / 0.3);
+    background: hsl(var(--primary) / 0.32);
     color: hsl(0 0% 98%);
+  }
+
+  #root {
+    min-height: 100vh;
   }
 }
 
 @layer components {
   .section-padding {
-    @apply px-6 md:px-12 lg:px-20 xl:px-32;
+    @apply px-5 md:px-10 lg:px-16 xl:px-24;
   }
 
   .heading-display {
-    @apply text-4xl md:text-5xl lg:text-7xl font-black tracking-tight leading-[0.95];
+    font-family: var(--font-display);
+    @apply text-5xl font-bold tracking-tight leading-[0.92] md:text-6xl lg:text-[5.75rem];
   }
 
   .heading-section {
-    @apply text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight;
+    font-family: var(--font-display);
+    @apply text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl;
   }
 
   .text-body {
-    @apply text-base md:text-lg font-light leading-relaxed text-muted-foreground;
+    @apply text-base leading-8 text-muted-foreground md:text-lg;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-[0.32em] text-primary;
+  }
+
+  .signal-gradient {
+    background-image: linear-gradient(
+      120deg,
+      hsl(var(--foreground)),
+      hsl(var(--primary)) 48%,
+      hsl(var(--accent))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   .gold-gradient {
-    @apply bg-gradient-to-r from-primary via-yellow-300 to-primary bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      120deg,
+      hsl(var(--foreground)),
+      hsl(var(--primary)) 48%,
+      hsl(var(--accent))
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
-  .cinematic-overlay {
-    @apply absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent;
+  .surface-panel {
+    @apply rounded-[1.75rem] border border-white/10 bg-white/[0.035] backdrop-blur-xl;
+    box-shadow:
+      0 24px 80px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
-  .hover-lift {
-    @apply transition-all duration-500 ease-out hover:-translate-y-1;
+  .bg-stage {
+    background:
+      radial-gradient(circle at top right, hsl(var(--primary) / 0.18), transparent 34%),
+      radial-gradient(circle at 12% 18%, hsl(var(--accent) / 0.16), transparent 22%),
+      linear-gradient(180deg, hsl(223 31% 10%) 0%, hsl(var(--background)) 48%, hsl(225 32% 6%) 100%);
+  }
+
+  .hero-grid {
+    background-image:
+      linear-gradient(hsl(0 0% 100% / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(0 0% 100% / 0.05) 1px, transparent 1px);
+    background-size: 88px 88px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent);
+  }
+
+  .video-placeholder {
+    position: relative;
+    border: 1px solid hsl(0 0% 100% / 0.08);
+    background:
+      linear-gradient(135deg, hsl(0 0% 100% / 0.07), transparent 45%),
+      radial-gradient(circle at top right, hsl(var(--primary) / 0.25), transparent 42%),
+      linear-gradient(180deg, hsl(223 31% 12%), hsl(223 34% 8%));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .video-placeholder::after {
+    content: "";
+    position: absolute;
+    inset: 16px;
+    border-radius: 1.1rem;
+    border: 1px dashed hsl(0 0% 100% / 0.16);
+    pointer-events: none;
   }
 }
 
