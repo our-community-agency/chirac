@@ -4,6 +4,8 @@ import { ArrowDown, ArrowDownRight, Play } from "lucide-react";
 import { heroSignals } from "@/content/siteContent";
 import { triggerPrompt } from "@/lib/promptBridge";
 
+const heroVideoSrc = `${import.meta.env.BASE_URL}videos/hero.mp4`;
+
 const HeroSection = () => {
   const startConversation = () => {
     triggerPrompt({
@@ -87,7 +89,7 @@ const HeroSection = () => {
                   playsInline
                   className="aspect-[4/5] w-full object-cover md:aspect-[4/4.4]"
                 >
-                  <source src="/videos/hero.mp4" type="video/mp4" />
+                  <source src={heroVideoSrc} type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6">
